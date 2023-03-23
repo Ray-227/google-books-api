@@ -13,19 +13,13 @@ import { selectCountOptions } from '../../entities/select.countOptions'
 import styles from './BookForm.module.scss'
 
 interface BookFormProps {
+	filter: IFilterBook
 	changeHandler: any
 }
 
-const BookForm = ({ changeHandler }: BookFormProps) => {
-	const defaultFilter: IFilterBook = {
-		search: '',
-		maxResults: 30,
-		subject: 'all',
-		orderBy: 'relevance'
-	}
-
+const BookForm = ({ changeHandler, filter }: BookFormProps) => {
 	const { reset, handleSubmit, control } = useForm({
-		defaultValues: defaultFilter,
+		defaultValues: filter,
 		mode: 'onChange'
 	})
 

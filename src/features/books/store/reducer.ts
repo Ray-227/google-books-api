@@ -5,7 +5,12 @@ import ACTIONS from './actions'
 const initialState: BookState = {
 	books: [],
 	count: 0,
-	filter: {},
+	filter: {
+		search: '',
+		maxResults: 30,
+		subject: 'all',
+		orderBy: 'relevance'
+	},
 	isLoading: false,
 	isError: false
 }

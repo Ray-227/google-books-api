@@ -36,7 +36,7 @@ const Books: FC<BooksProps> = ({ isLoading, isError, books, booksCount, filter, 
 
 	return (
 		<Layout>
-			<BookForm changeHandler={handleChangeSearch} />
+			<BookForm changeHandler={handleChangeSearch} filter={filter} />
 			<Divider />
 			<h4 className={styles.countInfo}>Найдено: {booksCount}</h4>
 			<Divider />
