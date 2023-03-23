@@ -42,7 +42,7 @@ const Books: FC<BooksProps> = ({ isLoading, isError, books, booksCount, filter, 
 		<Layout>
 			<BookForm changeHandler={handleChangeSearch} filter={filter} />
 			<Divider />
-			<h4 className={styles.countInfo}>Найдено: {booksCount}</h4>
+			<h4 className={styles.countInfo}>{!!booksCount ? `Найдено: ${booksCount}` : 'Введите поисковую строку'}</h4>
 			<Divider />
 			{isError ? (
 				<Alert severity='error' className={styles.errorAlert}>
@@ -59,8 +59,14 @@ const Books: FC<BooksProps> = ({ isLoading, isError, books, booksCount, filter, 
 			) : (
 				<>
 					<div className={styles.gridWrapper}>
-						<BookList books={books} />
-						{isLoading && <BookListSkeleton count={filter.maxResults} />}
+						{filter.isLoadMore ? (
+							<>
+								<BookList books={books} />
+								{isLoading && <BookListSkeleton count={filter.maxResults} />}
+							</>
+						) : (
+							<>{isLoading ? <BookListSkeleton count={filter.maxResults} /> : <BookList books={books} />}</>
+						)}
 					</div>
 					{!!books.length && (
 						<>

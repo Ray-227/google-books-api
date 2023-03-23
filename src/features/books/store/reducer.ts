@@ -37,6 +37,7 @@ const initialState: BookState = {
 export default function reducer(state = initialState, action: BookAction): BookState {
 	switch (action.type) {
 		case ACTIONS.FETCH_BOOKS:
+			console.log(`LOG: ACTIONS.FETCH_BOOKS`)
 			return {
 				...state,
 				booksIsLoading: true,
