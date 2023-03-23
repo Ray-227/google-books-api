@@ -64,8 +64,8 @@ const mapStateToProps = (state: RootState) => ({
 	books: state.books.books,
 	booksCount: state.books.count,
 	filter: state.books.filter,
-	isLoading: state.books.isLoading,
-	isError: state.books.isError
+	isLoading: state.books.booksIsLoading,
+	isError: state.books.booksIsError
 })
 
 const mapDispatchToProps = (dispatch: (fetchBooksDispatch: FetchBooksAction) => void) => ({

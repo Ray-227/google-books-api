@@ -1,0 +1,27 @@
+.wrapper {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 15px;
+	justify-content: center;
+	align-items: flex-start;
+
+	margin: 0 15px;
+}
+
+.info {
+	display: flex;
+
+	flex-direction: column;
+
+	justify-content: center;
+	align-items: center;
+
+	img {
+		width: 500px;
+		height: 800px;
+	}
+}
+
+.button {
+	place-self: flex-start;
+}

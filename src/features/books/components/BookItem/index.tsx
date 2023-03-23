@@ -15,6 +15,7 @@ interface BookItemProps {
 const BookItem: FC<BookItemProps> = ({ book }) => {
 	const isCategory: boolean = !!book.volumeInfo.categories?.length
 	const isSeveralAuthors: boolean = book.volumeInfo.authors?.length > 1
+	const isImage: boolean = !!book.volumeInfo.imageLinks?.thumbnail
 
 	const navigate = useNavigate()
 
@@ -24,7 +25,11 @@ const BookItem: FC<BookItemProps> = ({ book }) => {
 
 	return (
 		<Paper className={styles.bookItem} onClick={handleClick}>
-			<img alt={book.volumeInfo.title} src={book.volumeInfo.imageLinks.thumbnail} />
+			{isImage ? (
+				<img alt={book.volumeInfo.title} src={book.volumeInfo.imageLinks.thumbnail} />
+			) : (
+				<img alt={book.volumeInfo.title} src={'/images/bookImage.jpg'} />
+			)}
 			<Divider size={'large'} />
 			<div className={styles.bookInfo}>
 				<div>Название: {book.volumeInfo.title}</div>

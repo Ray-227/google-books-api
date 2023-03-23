@@ -1,12 +1,13 @@
-import { all, call, debounce, put } from 'redux-saga/effects'
+import { all, call, debounce, put, takeLatest } from 'redux-saga/effects'
 
-import { IBook } from '../../../types/types'
+import { IBook, IBookDetail } from '../../../types/types'
+import { fetchBookDetailRequest } from '../gateway/BookDetailGateway'
 import { fetchBooksRequest } from '../gateway/BooksGateway'
-import { FetchBookListWorker } from '../types/books.types'
+import { FetchBookDetailWorker, FetchBooksWorker } from '../types/books.types'
 
-import ACTIONS, { fetchBooksError, fetchBooksSuccess } from './actions.js'
+import ACTIONS, { fetchBookDetailError, fetchBookDetailSuccess, fetchBooksError, fetchBooksSuccess } from './actions.js'
 
-function* fetchBookListWorker({ payload }: FetchBookListWorker): Iterator<any> {
+function* fetchBooksWorker({ payload }: FetchBooksWorker): Iterator<any> {
 	try {
 		// @ts-ignore
 		const { totalItems: booksCount, items: books }: IBook[] = yield call(fetchBooksRequest, payload)
@@ -16,11 +17,26 @@ function* fetchBookListWorker({ payload }: FetchBookListWorker): Iterator<any> {
 	}
 }
 
-function* fetchTodoBookWatcher(): Iterator<any> {
+function* fetchBooksWatcher(): Iterator<any> {
 	// @ts-ignore
-	yield debounce(500, ACTIONS.FETCH_BOOKS, fetchBookListWorker)
+	yield debounce(500, ACTIONS.FETCH_BOOKS, fetchBooksWorker)
+}
+
+function* fetchBookDetailWorker({ payload }: FetchBookDetailWorker): Iterator<any> {
+	try {
+		// @ts-ignore
+		const bookDetail: IBookDetail = yield call(fetchBookDetailRequest, payload)
+		yield put(fetchBookDetailSuccess({ bookDetail }))
+	} catch (error) {
+		yield put(fetchBookDetailError())
+	}
+}
+
+function* fetchBookDetailWatcher(): Iterator<any> {
+	// @ts-ignore
+	yield takeLatest(ACTIONS.FETCH_BOOK_DETAIL, fetchBookDetailWorker)
 }
 
 export default function* saga() {
-	yield all([call(fetchTodoBookWatcher)])
+	yield all([call(fetchBooksWatcher), call(fetchBookDetailWatcher)])
 }

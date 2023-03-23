@@ -1,4 +1,4 @@
-import { BookAction, BookState, FetchBooksAction } from '../types/books.types'
+import { BookAction, BookState } from '../types/books.types'
 
 import ACTIONS from './actions'
 
@@ -11,8 +11,26 @@ const initialState: BookState = {
 		subject: 'all',
 		orderBy: 'relevance'
 	},
-	isLoading: false,
-	isError: false
+	booksIsLoading: false,
+	booksIsError: false,
+
+	bookDetail: {
+		id: '',
+		volumeInfo: {
+			imageLinks: {
+				medium: ''
+			},
+			title: '',
+			publisher: '',
+			publishedDate: '',
+			categories: [],
+			authors: [],
+			description: ''
+		}
+	},
+
+	bookDetailIsLoading: true,
+	bookDetailIsError: false
 }
 
 export default function reducer(state = initialState, action: BookAction): BookState {
@@ -20,8 +38,8 @@ export default function reducer(state = initialState, action: BookAction): BookS
 		case ACTIONS.FETCH_BOOKS:
 			return {
 				...state,
-				isLoading: true,
-				isError: false,
+				booksIsLoading: true,
+				booksIsError: false,
 				filter: action.payload
 			}
 		case ACTIONS.FETCH_BOOKS_SUCCESS:
@@ -29,14 +47,33 @@ export default function reducer(state = initialState, action: BookAction): BookS
 				...state,
 				books: action.payload.books,
 				count: action.payload.booksCount,
-				isLoading: false,
-				isError: false
+				booksIsLoading: false,
+				booksIsError: false
 			}
 		case ACTIONS.FETCH_BOOKS_ERROR:
 			return {
 				...state,
-				isLoading: false,
-				isError: true
+				booksIsLoading: false,
+				booksIsError: true
+			}
+		case ACTIONS.FETCH_BOOK_DETAIL:
+			return {
+				...state,
+				bookDetailIsLoading: true,
+				bookDetailIsError: false
+			}
+		case ACTIONS.FETCH_BOOK_DETAIL_SUCCESS:
+			return {
+				...state,
+				bookDetailIsLoading: false,
+				bookDetailIsError: false,
+				bookDetail: action.payload.bookDetail
+			}
+		case ACTIONS.FETCH_BOOK_DETAIL_ERROR:
+			return {
+				...state,
+				bookDetailIsLoading: false,
+				bookDetailIsError: true
 			}
 		default:
 			return state

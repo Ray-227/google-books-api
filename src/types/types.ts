@@ -10,32 +10,40 @@ export interface IFilterBook {
 
 export interface IBook {
 	id: number
-	selfLink: string
 
-	volumeInfo: VolumeInfo
-
-	searchInfo: SearchInfo
+	volumeInfo: VolumeInfoIBook
 }
 
-interface VolumeInfo {
+interface VolumeInfoIBook {
 	title: string
 	authors: string[]
-
-	publisher: string
-	publishedDate: string
-	description: string
-	pageCount: number
 	categories: string[]
 
-	imageLinks: ImageLinks
-	language: string
+	imageLinks: ImageLinksIBook
 }
 
-interface ImageLinks {
-	smallThumbnail: string
+interface ImageLinksIBook {
 	thumbnail: string
 }
 
-interface SearchInfo {
-	textSnippet: string
+export interface IBookDetail {
+	id: string
+
+	volumeInfo: VolumeInfoIBookDetail
+}
+
+interface VolumeInfoIBookDetail {
+	imageLinks: ImageLinksIBookDetail
+	title: string
+
+	publisher: string
+
+	publishedDate: string
+	categories: string[]
+	authors: string[]
+	description: string
+}
+
+interface ImageLinksIBookDetail {
+	medium: string
 }
