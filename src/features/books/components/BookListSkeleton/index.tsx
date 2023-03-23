@@ -7,7 +7,7 @@ const BookListSkeleton = ({ count = 30 }: BookListSkeletonProps): JSX.Element =>
 	const bookList = []
 
 	for (let i = 0; i < count; i++) {
-		bookList.push(<Skeleton key={`${count}_${i}_skeleton`} variant='rectangular' width={200} height={350} />)
+		bookList.push(<Skeleton key={`${count}_${i}_skeleton`} variant='rectangular' width={200} height={380} />)
 	}
 
 	return <>{bookList}</>

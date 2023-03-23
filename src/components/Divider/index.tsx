@@ -1,5 +1,9 @@
 import styles from './Divider.module.scss'
 
-const Divider = () => <div className={styles.divider}></div>
+interface DividerProps {
+	size?: any
+}
+
+const Divider = ({ size = 'default' }: DividerProps) => <div className={styles[size]}></div>
 
 export default Divider
