@@ -1,6 +1,19 @@
+@import 'src/assets/styles/mixins';
+
 .wrapper {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
+
+	@include media('max', 'lg') {
+		grid-template-columns: repeat(auto-fill, minmax(550px, 1fr));
+		margin: 0 5px;
+	}
+
+	@include media('max', 'sm') {
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		margin: 0 5px;
+	}
+
 	gap: 15px;
 	justify-content: center;
 	align-items: flex-start;
@@ -20,8 +33,25 @@
 		width: 500px;
 		height: 800px;
 	}
+
+	@include media('max', 'lg') {
+		img {
+			width: auto;
+			height: auto;
+		}
+	}
+
+	@include media('max', 'sm') {
+		img {
+			width: 260px;
+		}
+	}
 }
 
 .button {
 	place-self: flex-start;
+
+	@include media('max', 'md') {
+		place-self: center;
+	}
 }
