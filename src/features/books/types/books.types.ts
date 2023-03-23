@@ -4,7 +4,7 @@ import ACTIONS from '../store/actions'
 export interface BookState {
 	books: IBook[]
 
-	filter: object
+	filter: IFilterBook
 
 	count: number
 	isLoading: boolean
