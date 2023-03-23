@@ -1,0 +1,32 @@
+@import 'src/assets/styles/mixins';
+
+.paper {
+	width: 80%;
+	margin: 0 auto;
+	padding: 25px;
+}
+
+.formWrapper {
+	display: grid;
+	grid-template-columns: 1fr 100px;
+	@include media('max', 'sm') {
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		justify-content: center;
+	}
+
+	gap: 15px;
+	align-items: stretch;
+}
+
+.options {
+	display: grid;
+	grid-template-columns: 140px 100px 180px;
+	gap: 15px;
+	@include media('max', 'sm') {
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		justify-content: center;
+	}
+
+	justify-content: flex-end;
+	align-items: flex-end;
+}

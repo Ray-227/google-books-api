@@ -1,0 +1,17 @@
+@import 'variables';
+@import 'normalize.css';
+
+:root {
+	font-family: $default-font;
+	line-height: 1.5;
+	font-weight: 400;
+
+	color: $color;
+	background-color: $backgroundColor;
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+}
