@@ -6,6 +6,8 @@ export interface IFilterBook {
 	subject?: string
 
 	orderBy?: string
+
+	isLoadMore: boolean
 }
 
 export interface IBook {

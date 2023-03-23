@@ -22,6 +22,7 @@ export interface FetchBooksAction {
 
 export interface FetchBooksSuccessPayload {
 	books: IBook[]
+	filter: IFilterBook
 	booksCount: number
 }
 export interface FetchBooksSuccessAction {

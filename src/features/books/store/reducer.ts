@@ -9,7 +9,8 @@ const initialState: BookState = {
 		search: '',
 		maxResults: 30,
 		subject: 'all',
-		orderBy: 'relevance'
+		orderBy: 'relevance',
+		isLoadMore: false
 	},
 	booksIsLoading: false,
 	booksIsError: false,
@@ -45,7 +46,7 @@ export default function reducer(state = initialState, action: BookAction): BookS
 		case ACTIONS.FETCH_BOOKS_SUCCESS:
 			return {
 				...state,
-				books: action.payload.books,
+				books: action.payload.filter.isLoadMore ? [...state.books, ...action.payload.books] : action.payload.books,
 				count: action.payload.booksCount,
 				booksIsLoading: false,
 				booksIsError: false

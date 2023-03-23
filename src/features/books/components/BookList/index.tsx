@@ -6,7 +6,7 @@ interface BookListProps {
 }
 
 const BookList = ({ books }: BookListProps): JSX.Element => {
-	return <>{books && books.map(book => <BookItem key={book.id} book={book} />)}</>
+	return <>{books && books.map((book, index) => <BookItem key={`${book.id}_${index}`} book={book} />)}</>
 }
 
 export default BookList

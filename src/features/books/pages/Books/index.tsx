@@ -34,6 +34,10 @@ const Books: FC<BooksProps> = ({ isLoading, isError, books, booksCount, filter, 
 		fetchBooks(filterForm)
 	}
 
+	const loadMore = () => {
+		fetchBooks({ ...filter, startIndex: filter.maxResults, isLoadMore: true })
+	}
+
 	return (
 		<Layout>
 			<BookForm changeHandler={handleChangeSearch} filter={filter} />
@@ -44,6 +48,7 @@ const Books: FC<BooksProps> = ({ isLoading, isError, books, booksCount, filter, 
 				<Alert severity='error' className={styles.errorAlert}>
 					Произошла ошибка, попробуйте{' '}
 					<Button
+						variant={'outlined'}
 						onClick={() => {
 							fetchBooks(filter)
 						}}
@@ -52,9 +57,23 @@ const Books: FC<BooksProps> = ({ isLoading, isError, books, booksCount, filter, 
 					</Button>
 				</Alert>
 			) : (
-				<div className={styles.gridWrapper}>
-					{isLoading ? <BookListSkeleton count={filter.maxResults} /> : <BookList books={books} />}
-				</div>
+				<>
+					<div className={styles.gridWrapper}>
+						<BookList books={books} />
+						{isLoading && <BookListSkeleton count={filter.maxResults} />}
+					</div>
+					{!!books.length && (
+						<>
+							<Divider />
+							<div className={styles.loadMore}>
+								<Button onClick={loadMore} variant={'contained'}>
+									Загрузить ещё {filter.maxResults}
+								</Button>
+							</div>
+							<Divider />
+						</>
+					)}
+				</>
 			)}
 		</Layout>
 	)

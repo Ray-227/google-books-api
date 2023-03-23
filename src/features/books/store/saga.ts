@@ -11,7 +11,7 @@ function* fetchBooksWorker({ payload }: FetchBooksWorker): Iterator<any> {
 	try {
 		// @ts-ignore
 		const { totalItems: booksCount, items: books }: IBook[] = yield call(fetchBooksRequest, payload)
-		yield put(fetchBooksSuccess({ booksCount, books }))
+		yield put(fetchBooksSuccess({ booksCount, books, filter: payload }))
 	} catch (error) {
 		yield put(fetchBooksError())
 	}
