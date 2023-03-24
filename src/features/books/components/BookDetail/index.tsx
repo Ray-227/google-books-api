@@ -1,4 +1,4 @@
-import { Button, Skeleton } from '@mui/material'
+import { Button } from '@mui/material'
 import { FC, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -10,6 +10,7 @@ import { RootState } from '../../../../core/configureStore'
 import { IBookDetail } from '../../../../types/types'
 import { fetchBookDetail as fetchBookDetailAction } from '../../store/actions'
 import { FetchBookDetailAction, FetchBookDetailPayload } from '../../types/books.types'
+import BookDetailSkeleton from '../BookDetailSkeleton'
 
 import styles from './BookDetail.module.scss'
 
@@ -23,6 +24,11 @@ interface BookDetailProps {
 const BookDetail: FC<BookDetailProps> = ({ bookDetail, isLoading, isError, fetchBookDetailDispatch }) => {
 	const { id } = useParams()
 	const navigate = useNavigate()
+
+	const backLinkClick = () => {
+		navigate('/')
+	}
+
 	const fetchBookDetail = () => {
 		fetchBookDetailDispatch({ id })
 	}
@@ -33,28 +39,7 @@ const BookDetail: FC<BookDetailProps> = ({ bookDetail, isLoading, isError, fetch
 
 	const renderBookDetail = () => {
 		if (isLoading) {
-			return (
-				<div className={styles.wrapper}>
-					<div className={styles.info}>
-						<Skeleton className={styles.button} variant='rectangular' width={80} height={36} />
-						<Divider />
-						<Skeleton variant='rectangular' width={500} height={800} />
-					</div>
-					<div>
-						<Skeleton className={styles.button} variant='rectangular' width={'100%'} height={36} />
-						<Divider />
-						<Skeleton className={styles.button} variant='rectangular' width={'100%'} height={36} />
-						<Divider />
-						<Skeleton className={styles.button} variant='rectangular' width={'100%'} height={36} />
-						<Divider />
-						<Skeleton className={styles.button} variant='rectangular' width={'100%'} height={36} />
-						<Divider />
-						<Skeleton className={styles.button} variant='rectangular' width={'100%'} height={36} />
-						<Divider />
-						<Skeleton className={styles.button} variant='rectangular' width={'100%'} height={500} />
-					</div>
-				</div>
-			)
+			return <BookDetailSkeleton />
 		}
 
 		if (isError) {
@@ -63,24 +48,20 @@ const BookDetail: FC<BookDetailProps> = ({ bookDetail, isLoading, isError, fetch
 
 		const isImage: boolean = !!bookDetail?.volumeInfo?.imageLinks?.medium
 
+		const image = isImage ? (
+			<img src={bookDetail.volumeInfo.imageLinks.medium} alt={bookDetail.volumeInfo.title} />
+		) : (
+			<img alt={bookDetail.volumeInfo.title} src={'/images/bookImage.jpg'} />
+		)
+
 		return (
 			<div className={styles.wrapper}>
 				<div className={styles.info}>
-					<Button
-						className={styles.button}
-						variant={'outlined'}
-						onClick={() => {
-							navigate('/')
-						}}
-					>
+					<Button className={styles.button} variant={'outlined'} onClick={backLinkClick}>
 						Назад
 					</Button>
 					<Divider />
-					{isImage ? (
-						<img src={bookDetail.volumeInfo.imageLinks.medium} alt={bookDetail.volumeInfo.title} />
-					) : (
-						<img alt={bookDetail.volumeInfo.title} src={'/images/bookImage.jpg'} />
-					)}
+					{image}
 				</div>
 				<div>
 					<h2>{bookDetail.volumeInfo.title}</h2>

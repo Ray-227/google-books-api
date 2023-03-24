@@ -1,4 +1,4 @@
-import { IBook, IFilterBook } from '../../../types/types'
+import { IFilterBook } from '../../../types/types'
 import {
 	FetchBookDetailAction,
 	FetchBookDetailErrorAction,
